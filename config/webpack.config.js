@@ -322,9 +322,17 @@ module.exports = function (webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
-        // Support React Native Web
-        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-        'react-native': 'react-native-web',
+        'src': path.resolve(__dirname, '../src'),
+        'api': path.resolve(__dirname, '../src/api'),
+        'assets': path.resolve(__dirname, '../src/assets'),
+        'common': path.resolve(__dirname, '../src/common'),
+        '@': path.resolve(__dirname, '../src/components'),
+        'config': path.resolve(__dirname, '../src/config'),
+        'store': path.resolve(__dirname, '../src/store'),
+        'styles': path.resolve(__dirname, '../src/styles'),
+        'utils': path.resolve(__dirname, '../src/utils'),
+        'log': path.resolve(__dirname, '../src/utils/log'),
+        'views': path.resolve(__dirname, '../src/views'),
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           'react-dom$': 'react-dom/profiling',
@@ -719,6 +727,8 @@ module.exports = function (webpackEnv) {
         // ESLint class options
         cwd: paths.appPath,
         resolvePluginsRelativeTo: __dirname,
+        // 在create-react-app开始的时候，会fix初始化一次格式化过程
+        fix: true,
         baseConfig: {
           extends: [require.resolve('eslint-config-react-app/base')],
           rules: {
